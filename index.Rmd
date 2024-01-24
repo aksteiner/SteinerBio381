@@ -1,0 +1,16 @@
+---
+title: "index"
+author: "Alex Steiner"
+date: "2024-01-24"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Steiner HW Repository 
+
+This is my repository for homework performed in Bio6100 at the University of Vermont. 
+
+
