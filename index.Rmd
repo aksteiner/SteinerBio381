@@ -13,6 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 This is my repository for homework performed in Bio6100 at the University of Vermont. 
 
-This is the [link](Homework_02.html) for assignment 1
+This is the [link](Homework_02.html) for homework-2.
 
+This is the [link](Homework-3.html) for homework-3. 
 
+This is the [link](lab-4.html) for homework-4.

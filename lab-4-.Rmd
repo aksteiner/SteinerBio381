@@ -8,11 +8,11 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-Homework lab number 4 
-BIO
+BIO 6100
+
 These problems can be found [here](https://gotellilab.github.io/Bio381/Homeworks/Homework_04.html).
 
-### Question 1
+### Question 1.
 Suppose $x = 1.1$, $a = 2.2$, and $b = 3.3$. Assign each expression to the value of the variable $z$ and print the value stored in $z$.
 
 a. $x^{a^b}$
@@ -38,7 +38,7 @@ print(z)
 ```
 
  
-### Question 2
+### Question 2.
 Using the ```rep``` and ```seq``` functions, create the following vectors:
  
 a. $(1,2,3,4,5,6,7,8,7,6,5,4,3,2,1)$
@@ -62,7 +62,7 @@ print(vector_c)
 #is there convention to not assign values to "o", as it looks like a 0?
 ```
   
-# Question 3
+### Question 3.
 Create a vector of two random uniform numbers. In a spatial map, these can be interpreted as x and y coordinates that give the location of an individual (such as a marked forest tree in a plot that has been mapped). Using one of R’s inverse trigonometry functions (```asin()```, ```acos()```, or ```atan()```), convert these numbers into polar coordinates.
 ```{r}
 
@@ -80,7 +80,6 @@ print(polar_Coords)
 ### Question 4.
 Create a vector ```queue <- c("sheep", "fox", "owl", "ant")``` where ```queue``` represents the animals that are lined up to enter Noah’s Ark, with the sheep at the front of the line. Using R expressions, update ```queue``` as:
 ```{r}
-
 queue <- c("sheep", "fox", "owl", "ant")
 
 #a. the serpent arrives and gets in line;
@@ -96,14 +95,14 @@ queue_c <- c("donkey", queue_b)
 queue_d <- queue_c[-5]
 
 #e. the owl gets bored and leaves;
-queue_e <- queue_d[-4]
+queue_e <- queue_d[-3]
 
 #f. the aphid arrives and the ant invites him to cut in line.
-queue_f <- c(queue_e, "ant", "aphid")
+queue_f <- append(queue_e, "aphid", after = 2)
 
 #g. Finally, determine the position of the aphid in the line.
 queue_g <- which(queue_f == "aphid")
-
+print(queue_g)
 ```
 ### Question 5. 
 Use R to create a vector of all of the integers from 1 to 100 that are not divisible by 2, 3, or 7. 
@@ -119,7 +118,6 @@ print(divide7)
 ##Hi George, which of these methods is better practice? 
 notdivis <- hundo[which((hundo%%2)>0 & (hundo%%3)>0 & (hundo%%7)>0)]
 print(notdivis)
-
 
 ```
 
