@@ -159,7 +159,7 @@ c. for the first variable, use a single line of code in R to select 4 random row
 
 ```{r}
 df[sample(nrow(df), 4), ] <- "NA"
-df
+
 ```
 
 d.for my_unis, write a single line of R code to identify which rows have the missing values.
@@ -176,9 +176,9 @@ dfa <- df[order(df$my_letters),]
 
 f. calculate the column mean for the first variable.
 ```{r}
-df$my_unis <- as.numeric(df$my_unis)
+dfa$my_unis <- as.numeric(dfa$my_unis)
 
-mean(df$my_unis, na.rm = TRUE)
+mean(dfa$my_unis, na.rm = TRUE)
 
 
 ```
