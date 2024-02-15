@@ -34,7 +34,7 @@ w
 
 create a square matrix with these elements.
 ```{r}
-m <- matrix(data = w, nrow = 8, ncol = 8)
+m <- matrix(data = w, nrow = n_dims, ncol = n_dims)
 ```
 
 print out the matrix.
@@ -57,10 +57,14 @@ It flips across the diagonal.
 calculate the sum and the mean of the elements in the first row and then the last row.
 
 ```{r}
+
+x <- nrow(uu)
+
 sum(uu[1, ])
 mean(uu[1, ])
-sum(uu[8,])
-mean(uu[8,])
+sum(uu[x,])
+mean(uu[x,])
+
 ```
 
 read about the eigen() function and use it on your matrix
