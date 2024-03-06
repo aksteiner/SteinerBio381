@@ -20,3 +20,7 @@ This is the [link](Homework-3.html) for homework-3.
 This is the [link](lab-4.html) for homework-4.
 
 This is the [link](lab-5.html) for homework-5.
+
+This is the [link](lab-6.html) for homework-6.
+
+This is the [link](lab-7.html) for homework-7.
