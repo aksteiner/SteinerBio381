@@ -11,9 +11,9 @@
 
 <meta name="author" content="Alex Steiner" />
 
-<meta name="date" content="2024-01-24" />
+<meta name="date" content="2024-04-03" />
 
-<title>index</title>
+<title>Homework 10</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -350,27 +350,900 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">index</h1>
+<h1 class="title toc-ignore">Homework 10</h1>
 <h4 class="author">Alex Steiner</h4>
-<h4 class="date">2024-01-24</h4>
+<h4 class="date">2024-04-03</h4>
 
 </div>
 
 
-<div id="steiner-hw-repository" class="section level1">
-<h1>Steiner HW Repository</h1>
-<p>This is my repository for homework performed in Bio6100 at the
-University of Vermont.</p>
-<p>This is the <a href="Homework_02.html">link</a> for homework-2.</p>
-<p>This is the <a href="Homework-3.html">link</a> for homework-3.</p>
-<p>This is the <a href="lab-4.html">link</a> for homework-4.</p>
-<p>This is the <a href="lab-5.html">link</a> for homework-5.</p>
-<p>This is the <a href="lab-6.html">link</a> for homework-6.</p>
-<p>This is the <a href="lab-7.html">link</a> for homework-7.</p>
-<p>This is the <a href="lab-8.html">link</a> for homework-8.</p>
-<p>This is the <a href="lab-9.html">link</a> for homework-9.</p>
-<p>This is the <a href="lab-10.html">link</a> for homework-10.</p>
-</div>
+<p>For loops and randomization tests</p>
+<ol style="list-style-type: decimal">
+<li>Using a for loop, write a function to calculate the number of zeroes
+in a numeric vector. Before entering the loop, set up a counter variable
+counter &lt;- 0. Inside the loop, add 1 to counter each time you have a
+zero in the vector. Finally, use return(counter) for the output.</li>
+</ol>
+<pre class="r"><code>vector &lt;- c(1,0,2,3,4,5,0,50,4)
+zerocounter &lt;- 0
+
+for(i in seq_along(vector)){
+  if(vector[i] == 0){
+    zerocounter &lt;- zerocounter + 1
+  }
+  }
+print(zerocounter)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<pre class="r"><code>##another way by Nic
+#for(i in seq_along(vector)){
+#  zerocounter &lt;- zerocounter + as.numeric(vector[i] == 0)
+#}
+
+
+
+## how we would actually want to do this
+sum(vector == 0)</code></pre>
+<pre><code>## [1] 2</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Use subsetting instead of a loop to rewrite the function as a single
+line of code.</li>
+</ol>
+<pre class="r"><code>length(vector[vector == 0])</code></pre>
+<pre><code>## [1] 2</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Write a function that takes as input two integers representing the
+number of rows and columns in a matrix. The output is a matrix of these
+dimensions in which each element is the product of the row number x the
+column number.</li>
+</ol>
+<pre class="r"><code>##probably not the best way to do this, but 
+matrixfuncout &lt;- function(row = 4, column = 3){
+  data = expand.grid(m = 1:row, n = 1:column)
+  matmult &lt;- data$m * data$n
+  mat &lt;- matrix(data = matmult, nrow = row, ncol = column)
+print(mat)
+  }
+
+matrixfuncout()</code></pre>
+<pre><code>##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    2    4    6
+## [3,]    3    6    9
+## [4,]    4    8   12</code></pre>
+<p>4.Now let’s practice calling custom functions within a for loop. Use
+the code from previous lectures on loops and functions to complete the
+following steps:</p>
+<ol style="list-style-type: lower-alpha">
+<li>Simulate a dataset with 3 groups of data, each group drawn from a
+distribution with a different mean. The final data frame should have 1
+column for group and 1 column for the response variable.</li>
+</ol>
+<pre class="r"><code>groups &lt;- c(&quot;groupa&quot;, &quot;groupb&quot;, &quot;groupc&quot;)
+n &lt;- 50
+df &lt;- data.frame(matrix(ncol = 2, nrow = n)) #temp df for the loop
+df_total &lt;- NULL  #resulting df
+
+for(i in 1:length(groups)){
+  df[1] &lt;- rep(groups[i], each = n)    #puts one grouping var in df 
+  df[2] &lt;- rnorm(n = n, mean = runif(1)) #generates n random numbers with random mean into df
+      df_total &lt;- rbind(df_total,df) #appends all dfs in loop
+}
+
+print(df_total)</code></pre>
+<pre><code>##         X1           X2
+## 1   groupa  2.190407209
+## 2   groupa  1.051107519
+## 3   groupa  0.742141672
+## 4   groupa  0.305911644
+## 5   groupa -0.589144900
+## 6   groupa  1.070251513
+## 7   groupa  1.767394849
+## 8   groupa  2.469710875
+## 9   groupa -0.064071404
+## 10  groupa  1.578728131
+## 11  groupa -0.301164672
+## 12  groupa  1.802507891
+## 13  groupa  0.804037383
+## 14  groupa -0.464118684
+## 15  groupa  0.812236157
+## 16  groupa -0.713497170
+## 17  groupa  1.790344493
+## 18  groupa  0.592489935
+## 19  groupa  0.652458770
+## 20  groupa  1.203546402
+## 21  groupa  1.316804215
+## 22  groupa  1.527691573
+## 23  groupa  0.888834850
+## 24  groupa  0.584971678
+## 25  groupa  0.850023445
+## 26  groupa  1.056518472
+## 27  groupa -0.915191755
+## 28  groupa -0.249036433
+## 29  groupa -0.241862065
+## 30  groupa  0.071989818
+## 31  groupa  0.812283356
+## 32  groupa -0.422647767
+## 33  groupa  2.175664383
+## 34  groupa  0.090256494
+## 35  groupa  0.258188454
+## 36  groupa  0.632839745
+## 37  groupa  0.857705813
+## 38  groupa  0.899982793
+## 39  groupa  1.417937062
+## 40  groupa -0.119116531
+## 41  groupa  0.230830438
+## 42  groupa  1.626869478
+## 43  groupa -0.456765189
+## 44  groupa  0.917173665
+## 45  groupa -0.104735724
+## 46  groupa -0.132589885
+## 47  groupa -0.674562154
+## 48  groupa  0.513763143
+## 49  groupa  0.953434119
+## 50  groupa  0.089679938
+## 51  groupb -0.232942357
+## 52  groupb  0.641388709
+## 53  groupb  1.182252906
+## 54  groupb  0.387390868
+## 55  groupb  0.977057358
+## 56  groupb  0.933277358
+## 57  groupb  1.456899656
+## 58  groupb  0.906605623
+## 59  groupb  2.169322239
+## 60  groupb  1.303668429
+## 61  groupb  1.066680606
+## 62  groupb  1.679961158
+## 63  groupb -0.567909892
+## 64  groupb  0.563393159
+## 65  groupb  0.231243746
+## 66  groupb -1.576710459
+## 67  groupb -0.118204999
+## 68  groupb  0.366882148
+## 69  groupb  1.480878054
+## 70  groupb -0.282299970
+## 71  groupb -0.184989698
+## 72  groupb  2.174092500
+## 73  groupb  1.412522128
+## 74  groupb  0.507532658
+## 75  groupb  0.097173127
+## 76  groupb  0.584076171
+## 77  groupb  2.143293186
+## 78  groupb  0.475942946
+## 79  groupb  0.095529393
+## 80  groupb  1.407145933
+## 81  groupb -0.745902823
+## 82  groupb -0.367253358
+## 83  groupb -0.384677916
+## 84  groupb  1.723774016
+## 85  groupb -0.539558200
+## 86  groupb -0.892095534
+## 87  groupb  0.820356474
+## 88  groupb  1.737595850
+## 89  groupb  1.454208300
+## 90  groupb -0.583153150
+## 91  groupb  2.337077688
+## 92  groupb  1.321488696
+## 93  groupb -0.610220579
+## 94  groupb  2.131443784
+## 95  groupb  0.314185198
+## 96  groupb  0.874219928
+## 97  groupb -1.004952084
+## 98  groupb  1.087798335
+## 99  groupb  0.197220765
+## 100 groupb  0.521880483
+## 101 groupc  0.777468372
+## 102 groupc  1.469219232
+## 103 groupc  1.576969064
+## 104 groupc  0.201004381
+## 105 groupc  2.185899253
+## 106 groupc  0.403506738
+## 107 groupc  0.374923503
+## 108 groupc  1.906632677
+## 109 groupc  1.078503091
+## 110 groupc  3.287717998
+## 111 groupc  0.775957793
+## 112 groupc  0.880635417
+## 113 groupc  0.668182140
+## 114 groupc  1.663392809
+## 115 groupc  0.384180934
+## 116 groupc  1.462685685
+## 117 groupc  1.697687067
+## 118 groupc  0.833139925
+## 119 groupc -0.515569214
+## 120 groupc  1.005956509
+## 121 groupc -1.161433174
+## 122 groupc -1.205408792
+## 123 groupc  2.159126873
+## 124 groupc  2.274139728
+## 125 groupc  1.141559592
+## 126 groupc  1.524096126
+## 127 groupc  1.449749340
+## 128 groupc  1.005575769
+## 129 groupc  0.233690231
+## 130 groupc  1.374034193
+## 131 groupc -0.008104913
+## 132 groupc  0.702685103
+## 133 groupc  1.193836758
+## 134 groupc  1.103298189
+## 135 groupc  0.866402614
+## 136 groupc  0.847664160
+## 137 groupc -0.984576892
+## 138 groupc  0.726433804
+## 139 groupc  0.182219643
+## 140 groupc -0.745679681
+## 141 groupc  0.982926228
+## 142 groupc  0.699851859
+## 143 groupc  1.545701255
+## 144 groupc  3.724410392
+## 145 groupc -0.369935413
+## 146 groupc  1.293899446
+## 147 groupc  0.734982234
+## 148 groupc  1.836839306
+## 149 groupc  0.554694914
+## 150 groupc  0.107881174</code></pre>
+<pre class="r"><code>#how I would actually do this with a for loop
+df &lt;- 1:50
+df &lt;- as.data.frame(df) #populate a dataframe
+df</code></pre>
+<pre><code>##    df
+## 1   1
+## 2   2
+## 3   3
+## 4   4
+## 5   5
+## 6   6
+## 7   7
+## 8   8
+## 9   9
+## 10 10
+## 11 11
+## 12 12
+## 13 13
+## 14 14
+## 15 15
+## 16 16
+## 17 17
+## 18 18
+## 19 19
+## 20 20
+## 21 21
+## 22 22
+## 23 23
+## 24 24
+## 25 25
+## 26 26
+## 27 27
+## 28 28
+## 29 29
+## 30 30
+## 31 31
+## 32 32
+## 33 33
+## 34 34
+## 35 35
+## 36 36
+## 37 37
+## 38 38
+## 39 39
+## 40 40
+## 41 41
+## 42 42
+## 43 43
+## 44 44
+## 45 45
+## 46 46
+## 47 47
+## 48 48
+## 49 49
+## 50 50</code></pre>
+<pre class="r"><code>cols &lt;- 3 #number of columns
+
+for(i in 1:cols){
+  col &lt;- rnorm(n = 50, mean = runif(1))
+  df[ , paste0(&quot;col&quot;, i)] &lt;- col
+}
+print(df)</code></pre>
+<pre><code>##    df        col1        col2         col3
+## 1   1  0.86734702 -0.45810297  1.327368715
+## 2   2  0.63543870  0.53628929  0.270053796
+## 3   3  1.34984183 -1.37871487  1.140833546
+## 4   4  0.69925139 -0.75154554  0.891952314
+## 5   5  0.84527546  0.98041419  1.518976618
+## 6   6  1.30800211  1.03190543  2.345208576
+## 7   7 -0.44612084  1.08735606 -0.043895785
+## 8   8  2.20701113  0.72138848 -0.729687300
+## 9   9  1.14355826  1.84714688  1.418835679
+## 10 10  0.39498192 -0.08111977  1.690408303
+## 11 11  0.46391490  1.37428059 -0.977423356
+## 12 12  0.49169668  0.61015421  0.449305192
+## 13 13  3.81094315  1.32388164  0.101282438
+## 14 14  0.17950323  0.61716052  1.477087029
+## 15 15 -1.04118568  2.36656013  0.608425585
+## 16 16  0.51590125 -0.55375981 -0.008874982
+## 17 17  2.35913235  0.41442716 -1.821498995
+## 18 18  0.52660488  0.31609708  1.339976084
+## 19 19  2.30703462  0.45491972 -0.661324283
+## 20 20 -0.45221388  0.63929437  0.016386741
+## 21 21  1.63358734  0.92114963 -3.305916727
+## 22 22  0.57877744  1.09891437  1.260635075
+## 23 23  0.66396253  0.68838143  0.812681062
+## 24 24  0.29936480  0.48702974 -0.452466254
+## 25 25  0.31738759  0.37614330  0.989074709
+## 26 26  0.15588604  2.08489275  1.063194618
+## 27 27 -0.26402034  0.72301112 -0.007414563
+## 28 28  2.03782733  0.84317838  0.503373829
+## 29 29  0.62416690  1.32594107  0.720717041
+## 30 30 -0.34647283  0.23871251 -0.028107988
+## 31 31  0.76538461 -0.41280180  0.717463710
+## 32 32  0.49815843  0.29594981  2.145833783
+## 33 33 -0.51775315 -1.48923508 -0.649956580
+## 34 34 -0.35475346  2.76182238  1.562299203
+## 35 35 -0.12821500 -0.78313501  3.286236654
+## 36 36  2.52815132  0.49039370  2.352222554
+## 37 37  1.10215673 -1.55822789  1.249778722
+## 38 38 -0.18619328  1.61866250 -0.089221687
+## 39 39  1.21808111  0.84277452  2.284096685
+## 40 40  1.20875742  1.13747044  0.386282391
+## 41 41  0.06489563 -1.00586836 -1.660374370
+## 42 42  1.29735084 -0.20078691 -0.370002420
+## 43 43  1.50222730  0.65972299  0.180429955
+## 44 44  1.19927244  0.52527212 -0.100633157
+## 45 45 -0.78916385 -0.17228681  1.535205901
+## 46 46 -0.27524436  0.20888731  1.100157674
+## 47 47  1.67715679  2.30576502 -0.692378186
+## 48 48  0.08076612  0.01393005  0.002275709
+## 49 49  1.54299443  1.44880003 -0.275842254
+## 50 50  0.43629039  2.06348809  1.152683711</code></pre>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## Warning: package &#39;tidyverse&#39; was built under R version 4.3.3</code></pre>
+<pre><code>## Warning: package &#39;readr&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;dplyr&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;stringr&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## Warning: package &#39;forcats&#39; was built under R version 4.3.2</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+## ✔ purrr     1.0.2     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>dfLong &lt;- df %&gt;% pivot_longer(cols = c(&quot;col1&quot;, &quot;col2&quot;, &quot;col3&quot;), names_to = &quot;Group&quot;, values_to = &quot;Response&quot; )
+print(dfLong)</code></pre>
+<pre><code>## # A tibble: 150 × 3
+##       df Group Response
+##    &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt;
+##  1     1 col1     0.867
+##  2     1 col2    -0.458
+##  3     1 col3     1.33 
+##  4     2 col1     0.635
+##  5     2 col2     0.536
+##  6     2 col3     0.270
+##  7     3 col1     1.35 
+##  8     3 col2    -1.38 
+##  9     3 col3     1.14 
+## 10     4 col1     0.699
+## # ℹ 140 more rows</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Write a custom function that 1) reshuffles the response variable,
+and 2) calculates the mean of each group in the reshuffled data. Store
+the means in a vector of length 3.</li>
+</ol>
+<pre class="r"><code>mean &lt;- NULL
+means &lt;-NULL
+groups &lt;- c(&quot;groupa&quot;, &quot;groupb&quot;, &quot;groupc&quot;)
+
+shufflefunc &lt;- function(df = df_total, group = groups){
+    df$X2 &lt;- sample(df$X2, replace = FALSE) #reshuffle
+    for(j in 1:length(group)){ #for loop to calc mean of each group
+             tempgroup &lt;- subset(df, (df$X1 == group[j])) #subsets the df to the group it is working on (a b or c)
+             mean &lt;- mean(tempgroup$X2) #takes mean of subset
+             means &lt;- append(means, mean) #pastes mean to the end of the means list
+    } 
+return(means)
+}
+
+df_total</code></pre>
+<pre><code>##         X1           X2
+## 1   groupa  2.190407209
+## 2   groupa  1.051107519
+## 3   groupa  0.742141672
+## 4   groupa  0.305911644
+## 5   groupa -0.589144900
+## 6   groupa  1.070251513
+## 7   groupa  1.767394849
+## 8   groupa  2.469710875
+## 9   groupa -0.064071404
+## 10  groupa  1.578728131
+## 11  groupa -0.301164672
+## 12  groupa  1.802507891
+## 13  groupa  0.804037383
+## 14  groupa -0.464118684
+## 15  groupa  0.812236157
+## 16  groupa -0.713497170
+## 17  groupa  1.790344493
+## 18  groupa  0.592489935
+## 19  groupa  0.652458770
+## 20  groupa  1.203546402
+## 21  groupa  1.316804215
+## 22  groupa  1.527691573
+## 23  groupa  0.888834850
+## 24  groupa  0.584971678
+## 25  groupa  0.850023445
+## 26  groupa  1.056518472
+## 27  groupa -0.915191755
+## 28  groupa -0.249036433
+## 29  groupa -0.241862065
+## 30  groupa  0.071989818
+## 31  groupa  0.812283356
+## 32  groupa -0.422647767
+## 33  groupa  2.175664383
+## 34  groupa  0.090256494
+## 35  groupa  0.258188454
+## 36  groupa  0.632839745
+## 37  groupa  0.857705813
+## 38  groupa  0.899982793
+## 39  groupa  1.417937062
+## 40  groupa -0.119116531
+## 41  groupa  0.230830438
+## 42  groupa  1.626869478
+## 43  groupa -0.456765189
+## 44  groupa  0.917173665
+## 45  groupa -0.104735724
+## 46  groupa -0.132589885
+## 47  groupa -0.674562154
+## 48  groupa  0.513763143
+## 49  groupa  0.953434119
+## 50  groupa  0.089679938
+## 51  groupb -0.232942357
+## 52  groupb  0.641388709
+## 53  groupb  1.182252906
+## 54  groupb  0.387390868
+## 55  groupb  0.977057358
+## 56  groupb  0.933277358
+## 57  groupb  1.456899656
+## 58  groupb  0.906605623
+## 59  groupb  2.169322239
+## 60  groupb  1.303668429
+## 61  groupb  1.066680606
+## 62  groupb  1.679961158
+## 63  groupb -0.567909892
+## 64  groupb  0.563393159
+## 65  groupb  0.231243746
+## 66  groupb -1.576710459
+## 67  groupb -0.118204999
+## 68  groupb  0.366882148
+## 69  groupb  1.480878054
+## 70  groupb -0.282299970
+## 71  groupb -0.184989698
+## 72  groupb  2.174092500
+## 73  groupb  1.412522128
+## 74  groupb  0.507532658
+## 75  groupb  0.097173127
+## 76  groupb  0.584076171
+## 77  groupb  2.143293186
+## 78  groupb  0.475942946
+## 79  groupb  0.095529393
+## 80  groupb  1.407145933
+## 81  groupb -0.745902823
+## 82  groupb -0.367253358
+## 83  groupb -0.384677916
+## 84  groupb  1.723774016
+## 85  groupb -0.539558200
+## 86  groupb -0.892095534
+## 87  groupb  0.820356474
+## 88  groupb  1.737595850
+## 89  groupb  1.454208300
+## 90  groupb -0.583153150
+## 91  groupb  2.337077688
+## 92  groupb  1.321488696
+## 93  groupb -0.610220579
+## 94  groupb  2.131443784
+## 95  groupb  0.314185198
+## 96  groupb  0.874219928
+## 97  groupb -1.004952084
+## 98  groupb  1.087798335
+## 99  groupb  0.197220765
+## 100 groupb  0.521880483
+## 101 groupc  0.777468372
+## 102 groupc  1.469219232
+## 103 groupc  1.576969064
+## 104 groupc  0.201004381
+## 105 groupc  2.185899253
+## 106 groupc  0.403506738
+## 107 groupc  0.374923503
+## 108 groupc  1.906632677
+## 109 groupc  1.078503091
+## 110 groupc  3.287717998
+## 111 groupc  0.775957793
+## 112 groupc  0.880635417
+## 113 groupc  0.668182140
+## 114 groupc  1.663392809
+## 115 groupc  0.384180934
+## 116 groupc  1.462685685
+## 117 groupc  1.697687067
+## 118 groupc  0.833139925
+## 119 groupc -0.515569214
+## 120 groupc  1.005956509
+## 121 groupc -1.161433174
+## 122 groupc -1.205408792
+## 123 groupc  2.159126873
+## 124 groupc  2.274139728
+## 125 groupc  1.141559592
+## 126 groupc  1.524096126
+## 127 groupc  1.449749340
+## 128 groupc  1.005575769
+## 129 groupc  0.233690231
+## 130 groupc  1.374034193
+## 131 groupc -0.008104913
+## 132 groupc  0.702685103
+## 133 groupc  1.193836758
+## 134 groupc  1.103298189
+## 135 groupc  0.866402614
+## 136 groupc  0.847664160
+## 137 groupc -0.984576892
+## 138 groupc  0.726433804
+## 139 groupc  0.182219643
+## 140 groupc -0.745679681
+## 141 groupc  0.982926228
+## 142 groupc  0.699851859
+## 143 groupc  1.545701255
+## 144 groupc  3.724410392
+## 145 groupc -0.369935413
+## 146 groupc  1.293899446
+## 147 groupc  0.734982234
+## 148 groupc  1.836839306
+## 149 groupc  0.554694914
+## 150 groupc  0.107881174</code></pre>
+<pre class="r"><code>shuffmeans &lt;- shufflefunc()
+print(shuffmeans)  ##why are they all really close?</code></pre>
+<pre><code>## [1] 0.8739195 0.6900864 0.5908232</code></pre>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Use a for loop to repeat the function in b 100 times. Store the
+results in a data frame that has 1 column indicating the replicate
+number and 1 column for each new group mean, for a total of 4
+columns.</li>
+</ol>
+<pre class="r"><code>repete &lt;- 1:100  #if Pete and Repeat were in a boat and Pete fell out, who was left? :||
+df_rep &lt;- data.frame(NULL)
+df_final &lt;- NULL
+groups &lt;- c(&quot;groupa&quot;, &quot;groupb&quot;, &quot;groupc&quot;)
+
+
+for(i in 1:length(repete)){
+  repz &lt;- rep(i, 3)
+  meanshuff &lt;- shufflefunc()
+  emptycolumn &lt;- NA #not sure what this column should be? 
+  df_rep &lt;- data.frame(groups, meanshuff, emptycolumn, repz)
+  df_final &lt;- rbind(df_final,df_rep)
+  }
+print(df_final)</code></pre>
+<pre><code>##     groups meanshuff emptycolumn repz
+## 1   groupa 0.6784993          NA    1
+## 2   groupb 0.6988133          NA    1
+## 3   groupc 0.7775164          NA    1
+## 4   groupa 0.8121456          NA    2
+## 5   groupb 0.7881860          NA    2
+## 6   groupc 0.5544975          NA    2
+## 7   groupa 0.7071507          NA    3
+## 8   groupb 0.7731906          NA    3
+## 9   groupc 0.6744878          NA    3
+## 10  groupa 0.7226121          NA    4
+## 11  groupb 0.7477036          NA    4
+## 12  groupc 0.6845135          NA    4
+## 13  groupa 0.6906791          NA    5
+## 14  groupb 0.8315147          NA    5
+## 15  groupc 0.6326352          NA    5
+## 16  groupa 0.6825696          NA    6
+## 17  groupb 0.6669463          NA    6
+## 18  groupc 0.8053132          NA    6
+## 19  groupa 0.7840893          NA    7
+## 20  groupb 0.5129346          NA    7
+## 21  groupc 0.8578052          NA    7
+## 22  groupa 0.5398956          NA    8
+## 23  groupb 0.7168175          NA    8
+## 24  groupc 0.8981160          NA    8
+## 25  groupa 0.5664691          NA    9
+## 26  groupb 0.9133872          NA    9
+## 27  groupc 0.6749728          NA    9
+## 28  groupa 0.5441970          NA   10
+## 29  groupb 0.7785358          NA   10
+## 30  groupc 0.8320962          NA   10
+## 31  groupa 0.9714206          NA   11
+## 32  groupb 0.6432707          NA   11
+## 33  groupc 0.5401378          NA   11
+## 34  groupa 0.8215544          NA   12
+## 35  groupb 0.7622864          NA   12
+## 36  groupc 0.5709883          NA   12
+## 37  groupa 0.5111566          NA   13
+## 38  groupb 0.8494103          NA   13
+## 39  groupc 0.7942623          NA   13
+## 40  groupa 0.5359289          NA   14
+## 41  groupb 0.7568229          NA   14
+## 42  groupc 0.8620772          NA   14
+## 43  groupa 0.6227755          NA   15
+## 44  groupb 0.8144485          NA   15
+## 45  groupc 0.7176051          NA   15
+## 46  groupa 0.6750776          NA   16
+## 47  groupb 0.7860408          NA   16
+## 48  groupc 0.6937107          NA   16
+## 49  groupa 0.6679012          NA   17
+## 50  groupb 0.6829017          NA   17
+## 51  groupc 0.8040262          NA   17
+## 52  groupa 0.8354873          NA   18
+## 53  groupb 0.6779579          NA   18
+## 54  groupc 0.6413840          NA   18
+## 55  groupa 0.6518378          NA   19
+## 56  groupb 0.7334587          NA   19
+## 57  groupc 0.7695325          NA   19
+## 58  groupa 0.7657059          NA   20
+## 59  groupb 0.7422593          NA   20
+## 60  groupc 0.6468638          NA   20
+## 61  groupa 0.7320722          NA   21
+## 62  groupb 0.8039845          NA   21
+## 63  groupc 0.6187724          NA   21
+## 64  groupa 0.7943563          NA   22
+## 65  groupb 0.6565148          NA   22
+## 66  groupc 0.7039580          NA   22
+## 67  groupa 0.7634722          NA   23
+## 68  groupb 0.6481341          NA   23
+## 69  groupc 0.7432227          NA   23
+## 70  groupa 0.8511620          NA   24
+## 71  groupb 0.7115283          NA   24
+## 72  groupc 0.5921388          NA   24
+## 73  groupa 0.6854996          NA   25
+## 74  groupb 0.7125785          NA   25
+## 75  groupc 0.7567509          NA   25
+## 76  groupa 0.5983438          NA   26
+## 77  groupb 0.7529555          NA   26
+## 78  groupc 0.8035298          NA   26
+## 79  groupa 0.6324298          NA   27
+## 80  groupb 0.8533910          NA   27
+## 81  groupc 0.6690083          NA   27
+## 82  groupa 0.7916752          NA   28
+## 83  groupb 0.5935937          NA   28
+## 84  groupc 0.7695602          NA   28
+## 85  groupa 0.5688064          NA   29
+## 86  groupb 0.8574696          NA   29
+## 87  groupc 0.7285531          NA   29
+## 88  groupa 0.8665920          NA   30
+## 89  groupb 0.7820146          NA   30
+## 90  groupc 0.5062224          NA   30
+## 91  groupa 0.7108977          NA   31
+## 92  groupb 0.7833468          NA   31
+## 93  groupc 0.6605847          NA   31
+## 94  groupa 0.6913576          NA   32
+## 95  groupb 0.7294876          NA   32
+## 96  groupc 0.7339839          NA   32
+## 97  groupa 0.6798972          NA   33
+## 98  groupb 0.7388043          NA   33
+## 99  groupc 0.7361276          NA   33
+## 100 groupa 0.6493876          NA   34
+## 101 groupb 0.7664357          NA   34
+## 102 groupc 0.7390059          NA   34
+## 103 groupa 0.6624736          NA   35
+## 104 groupb 0.9773087          NA   35
+## 105 groupc 0.5150468          NA   35
+## 106 groupa 0.6644301          NA   36
+## 107 groupb 0.8041158          NA   36
+## 108 groupc 0.6862832          NA   36
+## 109 groupa 0.7369661          NA   37
+## 110 groupb 0.7504881          NA   37
+## 111 groupc 0.6673749          NA   37
+## 112 groupa 0.8012707          NA   38
+## 113 groupb 0.6703506          NA   38
+## 114 groupc 0.6832078          NA   38
+## 115 groupa 0.6159026          NA   39
+## 116 groupb 0.6689219          NA   39
+## 117 groupc 0.8700046          NA   39
+## 118 groupa 0.6534864          NA   40
+## 119 groupb 0.6598120          NA   40
+## 120 groupc 0.8415307          NA   40
+## 121 groupa 0.8219432          NA   41
+## 122 groupb 0.5804927          NA   41
+## 123 groupc 0.7523932          NA   41
+## 124 groupa 0.7006361          NA   42
+## 125 groupb 0.7443579          NA   42
+## 126 groupc 0.7098352          NA   42
+## 127 groupa 0.7813689          NA   43
+## 128 groupb 0.6546911          NA   43
+## 129 groupc 0.7187692          NA   43
+## 130 groupa 0.7398660          NA   44
+## 131 groupb 0.6261088          NA   44
+## 132 groupc 0.7888543          NA   44
+## 133 groupa 0.6677217          NA   45
+## 134 groupb 0.8883375          NA   45
+## 135 groupc 0.5987699          NA   45
+## 136 groupa 0.7608832          NA   46
+## 137 groupb 0.7966042          NA   46
+## 138 groupc 0.5973418          NA   46
+## 139 groupa 0.8170857          NA   47
+## 140 groupb 0.5425871          NA   47
+## 141 groupc 0.7951563          NA   47
+## 142 groupa 0.6778430          NA   48
+## 143 groupb 0.7935951          NA   48
+## 144 groupc 0.6833910          NA   48
+## 145 groupa 0.8757893          NA   49
+## 146 groupb 0.7261390          NA   49
+## 147 groupc 0.5529008          NA   49
+## 148 groupa 0.7855920          NA   50
+## 149 groupb 0.7892178          NA   50
+## 150 groupc 0.5800193          NA   50
+## 151 groupa 0.8876916          NA   51
+## 152 groupb 0.8011419          NA   51
+## 153 groupc 0.4659956          NA   51
+## 154 groupa 0.8135609          NA   52
+## 155 groupb 0.6988863          NA   52
+## 156 groupc 0.6423819          NA   52
+## 157 groupa 0.6472076          NA   53
+## 158 groupb 0.6659460          NA   53
+## 159 groupc 0.8416756          NA   53
+## 160 groupa 0.6108760          NA   54
+## 161 groupb 0.6612392          NA   54
+## 162 groupc 0.8827139          NA   54
+## 163 groupa 0.6080652          NA   55
+## 164 groupb 0.7005003          NA   55
+## 165 groupc 0.8462636          NA   55
+## 166 groupa 0.7696177          NA   56
+## 167 groupb 0.6486332          NA   56
+## 168 groupc 0.7365782          NA   56
+## 169 groupa 0.6798603          NA   57
+## 170 groupb 0.6897050          NA   57
+## 171 groupc 0.7852638          NA   57
+## 172 groupa 0.7905597          NA   58
+## 173 groupb 0.6855289          NA   58
+## 174 groupc 0.6787405          NA   58
+## 175 groupa 0.6061777          NA   59
+## 176 groupb 0.6948963          NA   59
+## 177 groupc 0.8537551          NA   59
+## 178 groupa 0.6893803          NA   60
+## 179 groupb 0.7087777          NA   60
+## 180 groupc 0.7566711          NA   60
+## 181 groupa 0.6845868          NA   61
+## 182 groupb 0.7879181          NA   61
+## 183 groupc 0.6823243          NA   61
+## 184 groupa 0.6454904          NA   62
+## 185 groupb 0.8400565          NA   62
+## 186 groupc 0.6692822          NA   62
+## 187 groupa 0.8101963          NA   63
+## 188 groupb 0.7151686          NA   63
+## 189 groupc 0.6294642          NA   63
+## 190 groupa 0.6623387          NA   64
+## 191 groupb 1.0026673          NA   64
+## 192 groupc 0.4898232          NA   64
+## 193 groupa 0.6431676          NA   65
+## 194 groupb 0.8445574          NA   65
+## 195 groupc 0.6671041          NA   65
+## 196 groupa 0.6301346          NA   66
+## 197 groupb 0.7317767          NA   66
+## 198 groupc 0.7929178          NA   66
+## 199 groupa 0.8706195          NA   67
+## 200 groupb 0.6163899          NA   67
+## 201 groupc 0.6678197          NA   67
+## 202 groupa 0.6158855          NA   68
+## 203 groupb 0.7693948          NA   68
+## 204 groupc 0.7695487          NA   68
+## 205 groupa 0.7524061          NA   69
+## 206 groupb 0.6301884          NA   69
+## 207 groupc 0.7722346          NA   69
+## 208 groupa 0.6395464          NA   70
+## 209 groupb 0.5598254          NA   70
+## 210 groupc 0.9554574          NA   70
+## 211 groupa 0.6007159          NA   71
+## 212 groupb 0.6735476          NA   71
+## 213 groupc 0.8805656          NA   71
+## 214 groupa 0.8035489          NA   72
+## 215 groupb 0.8307377          NA   72
+## 216 groupc 0.5205425          NA   72
+## 217 groupa 0.6303678          NA   73
+## 218 groupb 0.6401878          NA   73
+## 219 groupc 0.8842735          NA   73
+## 220 groupa 0.8677788          NA   74
+## 221 groupb 0.6485438          NA   74
+## 222 groupc 0.6385066          NA   74
+## 223 groupa 0.6377966          NA   75
+## 224 groupb 0.8179438          NA   75
+## 225 groupc 0.6990888          NA   75
+## 226 groupa 0.7502576          NA   76
+## 227 groupb 0.6147880          NA   76
+## 228 groupc 0.7897836          NA   76
+## 229 groupa 0.8371455          NA   77
+## 230 groupb 0.7159894          NA   77
+## 231 groupc 0.6016942          NA   77
+## 232 groupa 0.7591320          NA   78
+## 233 groupb 0.8266948          NA   78
+## 234 groupc 0.5690023          NA   78
+## 235 groupa 0.8613779          NA   79
+## 236 groupb 0.6152542          NA   79
+## 237 groupc 0.6781969          NA   79
+## 238 groupa 0.7313021          NA   80
+## 239 groupb 0.7448699          NA   80
+## 240 groupc 0.6786571          NA   80
+## 241 groupa 0.7374505          NA   81
+## 242 groupb 0.7195665          NA   81
+## 243 groupc 0.6978121          NA   81
+## 244 groupa 0.7267886          NA   82
+## 245 groupb 0.7251259          NA   82
+## 246 groupc 0.7029146          NA   82
+## 247 groupa 0.8229852          NA   83
+## 248 groupb 0.5993043          NA   83
+## 249 groupc 0.7325397          NA   83
+## 250 groupa 0.7592679          NA   84
+## 251 groupb 0.6497162          NA   84
+## 252 groupc 0.7458449          NA   84
+## 253 groupa 0.5648155          NA   85
+## 254 groupb 0.6505467          NA   85
+## 255 groupc 0.9394669          NA   85
+## 256 groupa 0.6838252          NA   86
+## 257 groupb 0.6718013          NA   86
+## 258 groupc 0.7992026          NA   86
+## 259 groupa 0.7570532          NA   87
+## 260 groupb 0.8121157          NA   87
+## 261 groupc 0.5856603          NA   87
+## 262 groupa 0.6676705          NA   88
+## 263 groupb 0.8788602          NA   88
+## 264 groupc 0.6082985          NA   88
+## 265 groupa 0.8662679          NA   89
+## 266 groupb 0.5893695          NA   89
+## 267 groupc 0.6991916          NA   89
+## 268 groupa 0.7601616          NA   90
+## 269 groupb 0.6753758          NA   90
+## 270 groupc 0.7192917          NA   90
+## 271 groupa 0.6166431          NA   91
+## 272 groupb 0.7198782          NA   91
+## 273 groupc 0.8183078          NA   91
+## 274 groupa 0.7918567          NA   92
+## 275 groupb 0.4891916          NA   92
+## 276 groupc 0.8737808          NA   92
+## 277 groupa 0.6131441          NA   93
+## 278 groupb 0.8017861          NA   93
+## 279 groupc 0.7398989          NA   93
+## 280 groupa 0.5716472          NA   94
+## 281 groupb 0.9845303          NA   94
+## 282 groupc 0.5986516          NA   94
+## 283 groupa 0.5728864          NA   95
+## 284 groupb 0.8676527          NA   95
+## 285 groupc 0.7142900          NA   95
+## 286 groupa 0.6036768          NA   96
+## 287 groupb 0.6750274          NA   96
+## 288 groupc 0.8761249          NA   96
+## 289 groupa 0.7742499          NA   97
+## 290 groupb 0.8454128          NA   97
+## 291 groupc 0.5351664          NA   97
+## 292 groupa 0.8791783          NA   98
+## 293 groupb 0.4958878          NA   98
+## 294 groupc 0.7797630          NA   98
+## 295 groupa 0.6377532          NA   99
+## 296 groupb 0.7432943          NA   99
+## 297 groupc 0.7737816          NA   99
+## 298 groupa 0.5759606          NA  100
+## 299 groupb 0.7855624          NA  100
+## 300 groupc 0.7933061          NA  100</code></pre>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Use qplot() to create a histogram of the means for each reshuffled
+group. Or, if you want a challenge, use ggplot() to overlay all 3
+histograms in the same figure. How do the distributions of reshuffled
+means compare to the original means?</li>
+</ol>
+<pre class="r"><code>library(ggplot2)
+
+
+ggplot(data = df_final) +
+  aes(x = meanshuff, fill = groups) +
+  geom_histogram()</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="data:image/png;base64,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" width="672" /></p>
+<pre class="r"><code>aggregate(x= df_final$meanshuff,
+                      # Specify group indicator
+                      by = list(df_final$groups),      
+                      # Specify function (i.e. mean)
+                      FUN = mean)</code></pre>
+<pre><code>##   Group.1         x
+## 1  groupa 0.7108644
+## 2  groupb 0.7290201
+## 3  groupc 0.7149446</code></pre>
 
 
 
